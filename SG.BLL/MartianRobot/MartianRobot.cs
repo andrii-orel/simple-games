@@ -88,7 +88,7 @@ public class MartianRobot : MartianRobotBase, IMartianRobot, IPlayable
 
         if (newX < 0 || newX >= MartianBoard.GetMaxWidth || newY < 0 || newY >= MartianBoard.GetMaxHeight)
         {
-            throw new InvalidOperationException("Rover is moving out of bounds!");
+            throw new InvalidOperationException("Robot is moving out of bounds!");
         }
 
         CurrentPosition.Coordinates.X = newX;
@@ -104,13 +104,13 @@ public class MartianRobot : MartianRobotBase, IMartianRobot, IPlayable
             int.TryParse(plateauSize[0], out var width);
             int.TryParse(plateauSize[1], out var height);
 
-            Console.WriteLine("Enter rover position and direction (x y direction): ");
-            var roverPosition = Console.ReadLine()?.Split(' ');
-            int.TryParse(roverPosition[0], out var x);
-            int.TryParse(roverPosition[1], out var y);
-            char direction = char.TryParse(roverPosition[2], out var d) 
+            Console.WriteLine("Enter robot position and direction (x y direction): ");
+            var robotPosition = Console.ReadLine()?.Split(' ');
+            int.TryParse(robotPosition[0], out var x);
+            int.TryParse(robotPosition[1], out var y);
+            char direction = char.TryParse(robotPosition[2], out var d) 
                 ? d 
-                : throw new InvalidOperationException($"Invalid command: {roverPosition[2]}");
+                : throw new InvalidOperationException($"Invalid command: {robotPosition[2]}");
             
             var martianRobot = new MartianRobot(width, height, x, y, direction);
 
