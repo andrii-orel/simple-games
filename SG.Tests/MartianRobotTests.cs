@@ -82,7 +82,7 @@ public class MartianRobotTests
     }
 
     [Fact]
-    public void Should_Throw_Exception_If_Moves_Out_Of_Bounds()
+    public void Should_Lost_If_Moves_Out_Of_Bounds()
     {
         // Arrange
         var robot = new MartianRobot(5,5, 0, 0, 'S');
