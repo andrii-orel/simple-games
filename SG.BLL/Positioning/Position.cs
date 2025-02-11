@@ -6,6 +6,7 @@ public class Position
 {
     public Coordinates Coordinates { get; }
     public char Direction { get; set; }
+    public bool IsLost { get; set; }
 
     public Position(int x, int y, char direction)
     {

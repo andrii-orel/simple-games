@@ -10,6 +10,7 @@ public class MartianRobot : MartianRobotBase, IMartianRobot, IPlayable
     
     public Board GetMartianBoard => MartianBoard;
     public Position GetCurrentPosition => CurrentPosition;
+    public string IsLostMessage => CurrentPosition.IsLost ? LostIdentificator : string.Empty;
     
     public MartianRobot(int width, int height, int x, int y, char direction)
     {
@@ -88,7 +89,7 @@ public class MartianRobot : MartianRobotBase, IMartianRobot, IPlayable
 
         if (newX < 0 || newX >= MartianBoard.GetMaxWidth || newY < 0 || newY >= MartianBoard.GetMaxHeight)
         {
-            throw new InvalidOperationException("Robot is moving out of bounds!");
+            CurrentPosition.IsLost = true;
         }
 
         CurrentPosition.Coordinates.X = newX;
@@ -108,19 +109,21 @@ public class MartianRobot : MartianRobotBase, IMartianRobot, IPlayable
             var robotPosition = Console.ReadLine()?.Split(' ');
             int.TryParse(robotPosition[0], out var x);
             int.TryParse(robotPosition[1], out var y);
-            char direction = char.TryParse(robotPosition[2], out var d) 
-                ? d 
+            char direction = char.TryParse(robotPosition[2], out var d)
+                ? d
                 : throw new InvalidOperationException($"Invalid command: {robotPosition[2]}");
-            
+
             var martianRobot = new MartianRobot(width, height, x, y, direction);
 
             Console.WriteLine("Enter movement commands (e.g., MRMMLMMRMMLM): ");
             string commands = Console.ReadLine();
 
             martianRobot.ExecuteCommand(commands);
-            
-            Console.WriteLine($"{martianRobot.GetCurrentPosition.Coordinates.X} {martianRobot.GetCurrentPosition.Coordinates.Y} {martianRobot.GetCurrentPosition.Direction}");
-            Console.WriteLine($"Final position: X = {martianRobot.GetCurrentPosition.Coordinates.X} Y = {martianRobot.GetCurrentPosition.Coordinates.Y} Direction = {martianRobot.GetCurrentPosition.Direction}");
+
+            Console.WriteLine(
+                $"{martianRobot.GetCurrentPosition.Coordinates.X} {martianRobot.GetCurrentPosition.Coordinates.Y} {martianRobot.GetCurrentPosition.Direction} {martianRobot.IsLostMessage}");
+            Console.WriteLine(
+                $"Final position: X = {martianRobot.GetCurrentPosition.Coordinates.X} Y = {martianRobot.GetCurrentPosition.Coordinates.Y} Direction = {martianRobot.GetCurrentPosition.Direction} {martianRobot.IsLostMessage}");
         }
         catch (Exception ex)
         {

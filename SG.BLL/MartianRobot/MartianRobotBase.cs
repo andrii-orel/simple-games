@@ -3,6 +3,8 @@
 public abstract class MartianRobotBase
 {
     public const int CommandMaxLength = 100;
+
+    public const string LostIdentificator = "LOST";
     
     public const char CommandL = 'L';
     public const char CommandR = 'R';

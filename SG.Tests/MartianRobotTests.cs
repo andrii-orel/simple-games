@@ -71,6 +71,8 @@ public class MartianRobotTests
     {
         // Arrange
         var robot = new MartianRobot(5,5, 0, 0, 'N');
+        
+        // Act
         robot.ExecuteCommand("MRMMLMMRMMLM");
 
         // Assert
@@ -84,9 +86,12 @@ public class MartianRobotTests
     {
         // Arrange
         var robot = new MartianRobot(5,5, 0, 0, 'S');
-
+        
+        // Act
+        robot.ExecuteCommand("M");
+        
         // Assert
-        Assert.Throws<InvalidOperationException>(() => robot.ExecuteCommand("M"));
+        Assert.True(robot.GetCurrentPosition.IsLost);
     }
     
     [Fact]
